@@ -1,6 +1,5 @@
 const { use } = require('../Routes/landing');
 
-
 oracledb = require('oracledb')
 
 // function to get id from email
@@ -10,16 +9,15 @@ const dbConfig = {
    connectString: 'localhost:1521/ORCL'
  };
 
-
-async function userauthenticate(username){
+   async function userauthenticate(email){
    connection = await oracledb.getConnection(dbConfig
    );
    const sql = `
-   SELECT FIRSTNAME
+   SELECT (FIRSTNAME || ' ' || LASTNAME) AS NAME,PATIENTID AS ID
     FROM PATIENT
-    WHERE UPPER(FIRSTNAME) = UPPER(:username)`;
+    WHERE UPPER(EMAILADDRESS) = UPPER(:email)`;
   const binds = {
-   username:username
+   email:email
 }
 const options = {
    outFormat: oracledb.OUT_FORMAT_OBJECT, // Output format (can be ARRAY, OBJECT, etc.)

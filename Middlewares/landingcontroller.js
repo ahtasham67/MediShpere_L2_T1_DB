@@ -5,4 +5,5 @@ const landingcontroller = (req,res,next) => {
     });
 }
 
+
 module.exports = landingcontroller;

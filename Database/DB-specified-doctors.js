@@ -46,7 +46,8 @@ async function getdoctorsbyid(id){
 FROM DOCTOR D JOIN DOCTORSPECIALTY E ON(D.DOCTORID = E.DOCTORID)
 WHERE D.DOCTORID = :id`;
  const binds = {
-  id:id
+  id:id,
+
 }
 const options = {
   outFormat: oracledb.OUT_FORMAT_OBJECT, // Output format (can be ARRAY, OBJECT, etc.)

@@ -6,7 +6,8 @@ const specificdoctorhandler = async(req,res,next) => {
     //console.log("result goes here");
    // console.log(result.rows)
     res.render('index',{
-        name:result.rows
+        name:result.rows,
+        user:req.session.user
        })
 }
 module.exports = specificdoctorhandler;

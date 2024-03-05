@@ -4,7 +4,8 @@ const selecteddoctor = async(req,res,next) => {
     
     const result = await query.getdoctorsbyid(req.params.id);
     res.render('DoctorDetails',{
-        name:result.rows
+        name:result.rows,
+        user:req.session.user
     })
 }
 

@@ -1,15 +1,20 @@
 const express = require('express');
 const app = express();
 
-// Import the route module
-const route = require('./Routes/landing');
+app.use(express.urlencoded({ extended: true }));
 
-// Mount the route at the '/landing' path
-app.use('/landing', route);
+app.post('/process-form', (req, res) => {
+    // Process the form data from the POST request
 
-// Other routes or middleware can be added here
+    // Redirect to a different URL after processing
+    res.redirect
+});
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.get('/success-page', (req, res) => {
+    // Render the success page
+    res.send('Form successfully processed!');
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
