@@ -50,7 +50,7 @@ async function fetchPatientProfile(req, res) {
     // Execute the query
     const result = await connection.execute(query, { patientId }, options);
     const patient = result.rows[0]; // Assuming only one patient is returned
-
+console.log(patient);
     // Render the template with patient data
     res.render('profile.ejs', { patient,patientId });
 

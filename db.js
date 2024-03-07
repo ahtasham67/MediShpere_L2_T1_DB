@@ -52,8 +52,12 @@ const errorHandler = require('./Middlewares/errorHandler');
 const diagnosticCentersRouter = require('./Routes/diagnosticCenters');
 const deleteAppointmentRouter = require('./Middlewares/deleteAppointment');
 const getpatientprofile = require('./Routes/ptntprofile.js');
+const getadmin = require('./Routes/admin.js');
 const updateptntprofile = require('./Routes/updateprofile.js')
-
+const deleteRoutes = require('./Database/adminDelete.js');
+const allpatients = require('./Database/adminPtnt.js');
+const alldoctors = require('./Database/adminDoc.js');
+const alldeletedappointments = require('./Database/deletedappointment.js');
 
 io.on('connection', (socket) => {
   //update booked slot
@@ -81,7 +85,13 @@ app.use('/docsignup',docsignup);
 app.use(errorHandler);
 app.use(diagnosticCentersRouter);
 app.get('/patient/:patientid',getpatientprofile.fetchPatientProfile);
+app.get('/admin',getadmin.adminpanel);
 app.use(updateptntprofile);
+app.use('/api', deleteRoutes);
+app.use('/allpatients', allpatients.allpatients);
+app.use('/alldoctors', alldoctors.alldoctors);
+app.use('/alldeletedappointments', alldeletedappointments.DeletedAppointments);
+
 
 const dbConfig = {
   user: 'c##bookstore',
@@ -235,6 +245,42 @@ app.get('/allprescription/:userid', async (req, res) => {
     res.status(500).send('An error occurred while retrieving data');
   }
 });
+//for diagnosis part
+app.get('/diagnosis/:userid', async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+    const userId = req.params.userid;
+    // Query to fetch all columns from the PRESCRIPTION, APPOINTMENT, Doctor, and DoctorSchedule tables for the given user ID
+    const query = `
+    SELECT st.*, ap.*, TO_CHAR(ds.DAY,'DD-MON-YYYY') as day,DS.STARTTIME,DS.ENDTIME,d.*
+    FROM SUGGESTED_TESTS st
+    JOIN APPOINTMENT ap ON st.APPOINTMENTID = ap.APPOINTMENTID
+    JOIN DOCTORSCHEDULE ds ON ds.SCHEDULEID = ap.SCHEDULEID
+    JOIN DOCTOR d ON d.DOCTORID = ds.DOCTORID
+    WHERE ap.PATIENTID = :userId
+    `;
+    const binds = {
+      userId: userId
+    };
+    // Define options for query execution
+    const options = {
+      outFormat: oracledb.OUT_FORMAT_OBJECT, // Output format (can be ARRAY, OBJECT, etc.)
+      autoCommit: true // Automatically commit the transaction
+    };
+//console.log(userId);
+    // Execute the query with binds and options
+    const result = await connection.execute(query, binds, options);
+    const diagnoses = result.rows;
+console.log(result.rows);
+    await connection.close();
+
+    res.render('diagnosis.ejs', { diagnoses, userId: userId });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('An error occurred while retrieving data');
+  }
+});
+
 
 app.get('/images/:imageName', (req, res) => {
   try {

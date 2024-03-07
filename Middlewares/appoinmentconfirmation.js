@@ -1,24 +1,38 @@
+const doc = require('pdfkit');
 const PDFDocument = require('pdfkit');
 const appooinmentconfirmation = (req,res,next) => {
-   
-   res.render('appoinmentcofirmation')
+   //console.log(req.query)
+   res.render('appoinmentcofirmation',{
+    patient:req.query.patient,
+    doctor:req.query.doctor,
+    appointment:req.query.appointment
+   })
 }
 
+
 const appoinmentletter = (req,res) =>{
-      // Logic to fetch user details (replace this with your actual logic)
+
+   
+  
+      //Logic to fetch user details (replace this with your actual logic)
+      const pateint = JSON.parse(req.query.patient);
+      const doctor = JSON.parse(req.query.doctor);
+      const appointment = JSON.parse(req.query.appointment);
       const userDetails = {
-        patientname:req.body.patientname,
-        patientphone:req.body.phone,
-        doctorname:req.body.doctorname,
-        Fee:req.body.fee,
-        starttime:req.body.starttime,
-        endtime:req.body.endtime,
-        serial:req.body.serial,
-        chamber:req.body.chamberaddress,
-        date:req.body.date
+        patientname:pateint.NAME,
+        patientphone:pateint.CONTACTNUMBER,
+        doctorname:doctor.NAME,
+        Fee:doctor.FEE,
+        starttime:appointment.starttime,
+        endtime:appointment.endtime,
+        serial:appointment.serial,
+        chamber:doctor.CHAMBERADDRESS,
+        date:appointment.date
         // Other details...
       };
-      // Create a PDF document
+    console.log("from here")
+   
+    //   // Create a PDF document
       const pdfDoc = new PDFDocument();
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', 'inline; filename=userDetails.pdf');
@@ -38,7 +52,7 @@ const appoinmentletter = (req,res) =>{
       pdfDoc.fillColor('blue').rect(pdfDoc.x, pdfDoc.y, pdfDoc.widthOfString('dfdfdsfsdfjksjdfksjfljsjfsdfljdsflewjkdsfjsdlkfjsdfjflsdffsfdsfdsffdfsfsfwesfsdfsfsdfdfsfadffdsf'), 43).fill();
       pdfDoc.fillColor('white')
     pdfDoc.moveDown()
-      pdfDoc.fontSize(26).text('Appoinment Details',
+      pdfDoc.fontSize(26).text('Appointment Details',
        { align:'center'
       });
       pdfDoc.moveDown();
@@ -69,21 +83,28 @@ const appoinmentletter = (req,res) =>{
       pdfDoc.moveDown();
       pdfDoc.fillColor('blue')
       pdfDoc.fontSize(24).font('Helvetica-Bold');
-      pdfDoc.text('Appoinment Details', { underline: true });
+      pdfDoc.text('Appointment Details', { underline: true });
+    
       pdfDoc.moveDown();
+    
+    
       pdfDoc.fillColor('black')
       pdfDoc.font('Helvetica');
       pdfDoc.fontSize(14);
+    
       pdfDoc.text(`Date :${userDetails.date}`);
       pdfDoc.text(`Start time :${userDetails.starttime}`);
       pdfDoc.text(`End time :${userDetails.endtime}`);
       pdfDoc.text(`Serial no :${userDetails.serial}`);
       pdfDoc.text(`Fee: ${userDetails.Fee}`);
+    
       // Customize styling and formatting
       pdfDoc.moveDown();
       pdfDoc.fillColor('red')
-      pdfDoc.text(`Please bring this Document on the day of your scheduled Appoinment`);
+      pdfDoc.text(`Please bring this Document on the day of your scheduled Appointment`);
+    
       // End the document
       pdfDoc.end();
+    
 }
 module.exports = {appooinmentconfirmation,appoinmentletter};

@@ -270,18 +270,15 @@
       padding-left: 12px;
       padding-right: 12px;
     }
-
     .rt-row:before,
     .rt-row:after {
       display: table;
       line-height: 0;
       content: "";
     }
-
     .rt-row:after {
       clear: both;
     }
-
     [class^="col-rt-"] {
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
@@ -292,7 +289,6 @@
       min-height: 1px;
       position: relative;
     }
-
     /* Add this to your CSS stylesheet */
     @keyframes fadeIn {
       from {
@@ -303,7 +299,6 @@
         opacity: 1;
       }
     }
-
     @keyframes fadeOut {
       from {
         opacity: 1;
@@ -313,12 +308,10 @@
         opacity: 0;
       }
     }
-
     .patient-profile-section {
       animation: fadeIn 0.5s ease-in-out;
       /* Adjust the animation duration and timing function as needed */
     }
-
     .patient-profile-section.hide {
       animation: fadeOut 0.5s ease-in-out;
       /* Adjust the animation duration and timing function as needed */
@@ -340,7 +333,6 @@
       padding: 10px;
       text-align: center;
     }
-
     .search-bar {
       display: inline-block;
       background-color: #fff;
@@ -349,14 +341,12 @@
       padding: 8px;
       margin-right: 10px;
     }
-
     .search-input {
       width: 500px;
       padding: 5px;
       border: none;
       outline: none;
     }
-
     .search-button {
       background-color: #4CAF50;
       color: #fff;
@@ -418,14 +408,12 @@
       </ul>
     </nav>
     <section class="main">
-
       <div class="search-bar-container">
         <div class="search-bar">
           <input type="text" class="search-input" placeholder="" onfocus="animatePlaceholder()">
           <button class="search-button" onclick="searchDoctors()">Search</button>
         </div>
       </div>
-
       <div class="main-patient-info">
         <div class="card">
           <i class="fas fa-user"></i>
@@ -437,13 +425,11 @@
           <h3>Medical History</h3>
           <button>View Records</button>
         </div>
-
-        <div class="card">
+        <!-- <div class="card">
           <i class="fas fa-chart-line"></i>
           <h3>Daily Health Updates</h3>
           <button onclick="viewDailyUpdates()">View Updates</button>
-        </div>
-
+        </div> -->
         <div class="card">
           <i class="fas fa-hospital-user"></i>
           <h3>Recent Appointments</h3>
@@ -455,8 +441,6 @@
           <h3>Diagnostic</h3>
           <button onclick="window.location.href='/diagnostics'">Show</button>
       </div>
-      
-
       </div>
       <section class="main-medical-records">
         <div class="records-box">
@@ -466,24 +450,23 @@
             </h1>
           </ul>
           <div class="records">
-            <div class="record diagnosis">
-              <h3>Diagnosis</h3>
-              <p>Current Diagnosis: Hypertension</p>
-              <button>View Details</button>
-              <i class="fas fa-heartbeat"></i>
+            <div class="record appointments">
+              <h3>Appointments</h3>
+              <p>Your all booked appointments</p>
+              <button onclick="window.location.href = '/landing/dashboard/upappointment'">View Details</button>
+              <i class="fas fa-calendar-alt"></i>
             </div>
             <div class="record prescription">
               <h3>Prescriptions</h3>
-              <p>Last Prescription</p>
+              <p>All Prescriptions</p>
               <button onclick="window.location.href = '/allprescription/<%= userId %>'">Prescriptions</button>
               <i class="fas fa-prescription-bottle"></i>
             </div>
-            
-            <div class="record appointments">
-              <h3>Appointments</h3>
-              <p>Next Appointment: 2023-02-10</p>
-              <button onclick="window.location.href = '/landing/dashboard/upappointment'">View Details</button>
-              <i class="fas fa-calendar-alt"></i>
+            <div class="record diagnosis">
+              <h3>Diagnosis</h3>
+              <p>All suggested tests</p>
+              <button onclick="window.location.href = '/diagnosis/<%= userId %>'">View Details</button>
+              <i class="fas fa-heartbeat"></i>
             </div>
           </div>
         </div>
@@ -496,166 +479,6 @@
     });
     let profileSectionVisible = false;
     let dailyUpdateSectionVisible = false;
-
-    function viewProfileDetails() {
-      const mainPatientInfoSection = document.querySelector(".records-box");
-      const profileSection = document.querySelector(".patient-profile-section");
-
-      if (profileSectionVisible) {
-        mainPatientInfoSection.style.display = "block";
-        profileSection.classList.add("fadeOut");
-        setTimeout(() => {
-          profileSection.style.display = "none";
-          profileSection.classList.remove("fadeOut");
-        }, 500);
-        profileSectionVisible = false;
-      } else {
-        mainPatientInfoSection.style.display = "none";
-
-        const newProfileSection = document.createElement("div");
-        newProfileSection.classList.add("patient-profile-section", "fadeIn");
-        newProfileSection.innerHTML = `
-        <div class="container">
-        <div class="col-rt-12">
-            <div class="Scriptcontent">
-                <div class="patient-profile py-4">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card shadow-sm">
-                                    <div class="card-header bg-transparent text-center">
-                                      <div style="height: 26px"></div>
-                                     
-                                        <h1><strong><%=patient.FULLNAME %><strong></h1>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="mb-0"><strong class="pr-1">Patient ID:</strong><%=patient.ID%></p>
-                                        <p class="mb-0"><strong class="pr-1">Address:</strong><%=patient.ADDRESS%></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="height: 26px"></div>
-                            <div class="col-lg-8">
-                                <div class="card shadow-sm">
-                                    <div class="card-header bg-transparent border-0">
-                                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Medical Information</h3>
-                                    </div>
-                                    <div class="card-body pt-0">
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                
-                                                <th width="30%">Date of Birth</th>
-                                                <td width="2%">:</td>
-                                                <td><%= patient.FORMATTED_DATEOFBIRTH%></td>
-                                            </tr>
-                                            <tr>
-                                                <th width="30%">Contact Number</th>
-                                                <td width="2%">:</td>
-                                                <td><%=patient.CONTACTNUMBER%></td>
-                                            </tr>
-                                            <tr>
-                                                <th width="30%">Blood Group</th>
-                                                <td width="2%">:</td>
-                                                <td><%= patient.BLOODGROUP %></td>
-                                            </tr>
-                                            <tr>
-                                                <th width="30%">Height(cm)</th>
-                                                <td width="2%">:</td>
-                                                <td><%= patient.HEIGHT %></td>
-                                            </tr>
-                                            <tr>
-                                                <th width="30%">Mail Address</th>
-                                                <td width="2%">:</td>
-                                                <td><%= patient.EMAILADDRESS %></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div style="height: 26px"></div>
-                                <div class="card shadow-sm">
-                                    <div class="card-header bg-transparent border-0">
-                                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Vaccination History</h3>
-                                    </div>
-                                    <div class="card-body pt-0">
-                                        <p><%= patient.VACCINATIONHISTORY %></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-          </div>
-                <!-- End Patient Profile -->
-        `;
-        document.querySelector(".main").appendChild(newProfileSection);
-
-        // Update the DOM with patient details
-
-        profileSectionVisible = true;
-        let dailyUpdateSectionVisible = false;
-      }
-      // profileSectionVisible = false;
-    }
-
-    function viewDailyUpdates() {
-      const mainPatientInfoSection = document.querySelector(".records-box");
-      const dailyUpdateSection = document.querySelector(".daily-update-section");
-
-      if (dailyUpdateSectionVisible) {
-        mainPatientInfoSection.style.display = "block";
-        dailyUpdateSection.classList.add("fadeOut");
-        setTimeout(() => {
-          dailyUpdateSection.style.display = "none";
-          dailyUpdateSection.classList.remove("fadeOut");
-        }, 500);
-        dailyUpdateSectionVisible = false;
-      } else {
-        mainPatientInfoSection.style.display = "none";
-
-        const newDailyUpdateSection = document.createElement("div");
-        newDailyUpdateSection.classList.add("daily-update-section", "fadeIn");
-        newDailyUpdateSection.innerHTML = `
-      <!-- Daily Health Updates -->
-      <div class="container">
-        <div class="col-rt-12">
-          <div class="Scriptcontent">
-            <div class="daily-update-section py-4">
-              <div class="container">
-                <div class="card-body pt-0">
-                                          <table class="table table-bordered">
-                                              <tr>
-                                                  
-                                                  <th width="30%">BLOODPRESSURE</th>
-                                                  <td width="2%">:</td>
-                                                  <td><%= patient.BLOODPRESSURE%></td>
-                                              </tr>
-                                              <tr>
-                                                  <th width="30%">BMI</th>
-                                                  <td width="2%">:</td>
-                                                  <td><%=patient.BMI%></td>
-                                              </tr>
-                                              <tr>
-                                                  <th width="30%">HEARTRATE</th>
-                                                  <td width="2%">:</td>
-                                                  <td><%= patient.HEARTRATE %></td>
-                                              </tr>
-                                          </table>
-                                      </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End Daily Health Updates -->
-    `;
-        document.querySelector(".main").appendChild(newDailyUpdateSection);
-
-        dailyUpdateSectionVisible = true;
-        profileSectionVisible = false;
-      }
-    }
     function navigateToLanding() {
       window.location.href = "/landing";
     }
@@ -671,15 +494,12 @@
         searchInput.setAttribute('placeholder', animatedText);
       }, 200); // Adjust the speed as needed
     }
-
     function searchDoctors() {
       const query = document.querySelector('.search-input').value.toLowerCase();
       console.log(query.rows);
       if (query) {
-        // Redirect to the specialty page based on the search input
         window.location.href = `/consultation/${query}`;
       } else {
-        // Handle other search logic or display results
         alert('Please enter a valid search term.');
       }
     }

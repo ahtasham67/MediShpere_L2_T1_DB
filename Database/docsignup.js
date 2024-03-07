@@ -61,5 +61,4 @@ console.log(newDoc);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }
-
 module.exports = docsignup;
