@@ -3050,4 +3050,402 @@ VALUES ('Nazia', 'Akter', TO_DATE('1979-04-15', 'YYYY-MM-DD'), 'Female', '+88019
 INSERT INTO Patient (FirstName, LastName, DateOfBirth, Gender, ContactNumber, Address, EmailAddress, BloodGroup, Password)
 VALUES ('Imran', 'Hossain', TO_DATE('1989-02-28', 'YYYY-MM-DD'), 'Male', '+8801612345678', 'Khulna, Bangladesh', 'imran_140@example.com', 'O-', 'imran_pass123');
 
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (1, 'Bangladesh Medical College Hospital', 'Cardiologist', '12/12/2002-18/3/2010', 'Cardiology');
 
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (2, 'Apollo Hospitals Dhaka', 'Neurologist', '18/6/2005-22/10/2013', 'Neurology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (3, 'Square Hospitals Ltd', 'Surgeon', '10/4/2007-15/8/2015', 'General Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (4, 'United Hospital Limited', 'Pediatrician', '5/9/2008-10/12/2016', 'Pediatrics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (5, 'Ibn Sina Hospital', 'Gynecologist', '20/11/2010-25/3/2018', 'Obstetrics and Gynecology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (6, 'Bangladesh Specialized Hospital', 'Orthopedic Surgeon', '15/7/2012-20/11/2020', 'Orthopedics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (7, 'Green Life Hospital Ltd', 'Ophthalmologist', '8/10/2014-12/2/2022', 'Ophthalmology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (8, 'Labaid Specialized Hospital', 'Dermatologist', '3/2/2016-8/6/2024', 'Dermatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (9, 'Square Hospitals Ltd', 'ENT Specialist', '18/5/2018-22/9/2026', 'Otolaryngology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (10, 'Apollo Hospitals Dhaka', 'Radiologist', '11/8/2020-15/12/2028', 'Radiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (11, 'Ibn Sina Hospital', 'Cardiothoracic Surgeon', '7/11/2022-10/3/2030', 'Cardiothoracic Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (12, 'United Hospital Limited', 'Urologist', '20/1/2024-25/5/2032', 'Urology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (13, 'Bangladesh Medical College Hospital', 'Endocrinologist', '15/3/2026-18/7/2034', 'Endocrinology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (14, 'Ibn Sina Hospital', 'Psychiatrist', '9/6/2028-12/10/2036', 'Psychiatry');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (15, 'Apollo Hospitals Dhaka', 'Hematologist', '25/9/2030-30/1/2039', 'Hematology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (16, 'Square Hospitals Ltd', 'Neonatologist', '18/12/2032-22/4/2040', 'Neonatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (17, 'Labaid Specialized Hospital', 'Pulmonologist', '12/3/2034-15/7/2042', 'Pulmonology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (18, 'Dhaka Medical College Hospital', 'Gastroenterologist', '6/5/2036-9/9/2044', 'Gastroenterology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (19, 'United Hospital Limited', 'Nephrologist', '30/7/2038-4/11/2046', 'Nephrology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (20, 'Bangladesh Specialized Hospital', 'Rheumatologist', '22/9/2040-26/1/2049', 'Rheumatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (21, 'Bangladesh Medical College Hospital', 'Cardiologist', '12/12/2002-18/3/2010', 'Cardiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (22, 'Apollo Hospitals Dhaka', 'Neurologist', '15/5/2005-20/8/2012', 'Neurology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (23, 'Square Hospitals Ltd', 'Surgeon', '10/9/2007-5/6/2015', 'General Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (24, 'United Hospital Limited', 'Pediatrician', '8/11/2008-25/12/2016', 'Pediatrics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (25, 'Ibn Sina Hospital', 'Gynecologist', '6/4/2010-11/9/2017', 'Obstetrics and Gynecology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (26, 'Bangladesh Medical College Hospital', 'Orthopedic Surgeon', '18/6/2011-30/10/2018', 'Orthopedics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (27, 'Apollo Hospitals Dhaka', 'Ophthalmologist', '4/8/2012-15/3/2019', 'Ophthalmology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (28, 'Square Hospitals Ltd', 'Dermatologist', '22/10/2013-9/7/2020', 'Dermatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (29, 'United Hospital Limited', 'ENT Specialist', '14/12/2014-18/5/2021', 'Otolaryngology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (30, 'Ibn Sina Hospital', 'Radiologist', '20/3/2015-27/8/2022', 'Radiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (31, 'Bangladesh Medical College Hospital', 'Cardiothoracic Surgeon', '9/7/2016-3/11/2023', 'Cardiothoracic Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (32, 'Apollo Hospitals Dhaka', 'Urologist', '12/9/2017-20/1/2024', 'Urology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (33, 'Square Hospitals Ltd', 'Endocrinologist', '5/11/2018-10/6/2025', 'Endocrinology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (34, 'United Hospital Limited', 'Psychiatrist', '8/1/2020-15/8/2027', 'Psychiatry');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (35, 'Ibn Sina Hospital', 'Hematologist', '3/3/2021-22/10/2028', 'Hematology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (36, 'Bangladesh Medical College Hospital', 'Neonatologist', '10/5/2022-28/12/2029', 'Neonatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (37, 'Apollo Hospitals Dhaka', 'Pulmonologist', '17/8/2023-7/2/2030', 'Pulmonology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (38, 'Square Hospitals Ltd', 'Gastroenterologist', '21/10/2024-15/5/2031', 'Gastroenterology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (39, 'United Hospital Limited', 'Nephrologist', '19/12/2025-9/7/2032', 'Nephrology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (40, 'Ibn Sina Hospital', 'Rheumatologist', '28/2/2027-3/9/2033', 'Rheumatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (41, 'Bangladesh Medical College Hospital', 'Cardiologist', '12/12/2002-18/3/2010', 'Cardiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (42, 'Apollo Hospitals Dhaka', 'Neurologist', '18/6/2005-22/10/2013', 'Neurology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (43, 'Square Hospitals Ltd', 'Surgeon', '10/4/2007-15/8/2015', 'General Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (44, 'United Hospital Limited', 'Pediatrician', '5/9/2008-10/12/2016', 'Pediatrics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (45, 'Ibn Sina Hospital', 'Gynecologist', '20/11/2010-25/3/2018', 'Obstetrics and Gynecology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (46, 'Bangladesh Specialized Hospital', 'Orthopedic Surgeon', '15/7/2012-20/11/2020', 'Orthopedics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (47, 'Green Life Hospital Ltd', 'Ophthalmologist', '8/10/2014-12/2/2022', 'Ophthalmology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (48, 'Labaid Specialized Hospital', 'Dermatologist', '3/2/2016-8/6/2024', 'Dermatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (49, 'Square Hospitals Ltd', 'ENT Specialist', '18/5/2018-22/9/2026', 'Otolaryngology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (50, 'Apollo Hospitals Dhaka', 'Radiologist', '11/8/2020-15/12/2028', 'Radiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (51, 'Ibn Sina Hospital', 'Cardiothoracic Surgeon', '7/11/2022-10/3/2030', 'Cardiothoracic Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (52, 'United Hospital Limited', 'Urologist', '20/1/2024-25/5/2032', 'Urology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (53, 'Bangladesh Medical College Hospital', 'Endocrinologist', '15/3/2026-18/7/2034', 'Endocrinology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (54, 'Ibn Sina Hospital', 'Psychiatrist', '9/6/2028-12/10/2036', 'Psychiatry');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (55, 'Apollo Hospitals Dhaka', 'Hematologist', '25/9/2030-30/1/2039', 'Hematology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (56, 'Square Hospitals Ltd', 'Neonatologist', '18/12/2032-22/4/2040', 'Neonatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (57, 'Labaid Specialized Hospital', 'Pulmonologist', '12/3/2034-15/7/2042', 'Pulmonology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (58, 'Dhaka Medical College Hospital', 'Gastroenterologist', '6/5/2036-9/9/2044', 'Gastroenterology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (59, 'United Hospital Limited', 'Nephrologist', '30/7/2038-4/11/2046', 'Nephrology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (60, 'Bangladesh Specialized Hospital', 'Rheumatologist', '22/9/2040-26/1/2049', 'Rheumatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (61, 'Bangladesh Medical College Hospital', 'Cardiologist', '12/12/2002-18/3/2010', 'Cardiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (62, 'Apollo Hospitals Dhaka', 'Neurologist', '18/6/2005-22/10/2013', 'Neurology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (63, 'Square Hospitals Ltd', 'Surgeon', '10/4/2007-15/8/2015', 'General Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (64, 'United Hospital Limited', 'Pediatrician', '5/9/2008-10/12/2016', 'Pediatrics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (65, 'Ibn Sina Hospital', 'Gynecologist', '20/11/2010-25/3/2018', 'Obstetrics and Gynecology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (66, 'Bangladesh Specialized Hospital', 'Orthopedic Surgeon', '15/7/2012-20/11/2020', 'Orthopedics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (67, 'Green Life Hospital Ltd', 'Ophthalmologist', '8/10/2014-12/2/2022', 'Ophthalmology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (68, 'Labaid Specialized Hospital', 'Dermatologist', '3/2/2016-8/6/2024', 'Dermatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (69, 'Square Hospitals Ltd', 'ENT Specialist', '18/5/2018-22/9/2026', 'Otolaryngology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (70, 'Apollo Hospitals Dhaka', 'Radiologist', '11/8/2020-15/12/2028', 'Radiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (71, 'Ibn Sina Hospital', 'Cardiothoracic Surgeon', '7/11/2022-10/3/2030', 'Cardiothoracic Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (72, 'United Hospital Limited', 'Urologist', '20/1/2024-25/5/2032', 'Urology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (73, 'Bangladesh Medical College Hospital', 'Endocrinologist', '15/3/2026-18/7/2034', 'Endocrinology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (74, 'Ibn Sina Hospital', 'Psychiatrist', '9/6/2028-12/10/2036', 'Psychiatry');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (75, 'Apollo Hospitals Dhaka', 'Hematologist', '25/9/2030-30/1/2039', 'Hematology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (76, 'Square Hospitals Ltd', 'Neonatologist', '18/12/2032-22/4/2040', 'Neonatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (77, 'Labaid Specialized Hospital', 'Pulmonologist', '12/3/2034-15/7/2042', 'Pulmonology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (78, 'Dhaka Medical College Hospital', 'Gastroenterologist', '6/5/2036-9/9/2044', 'Gastroenterology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (79, 'United Hospital Limited', 'Nephrologist', '30/7/2038-4/11/2046', 'Nephrology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (80, 'Bangladesh Specialized Hospital', 'Rheumatologist', '22/9/2040-26/1/2049', 'Rheumatology');
+		
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (81, 'Bangladesh Medical College Hospital', 'Cardiologist', '12/12/2002-18/3/2010', 'Cardiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (82, 'Apollo Hospitals Dhaka', 'Neurologist', '18/6/2005-22/10/2013', 'Neurology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (83, 'Square Hospitals Ltd', 'Surgeon', '10/4/2007-15/8/2015', 'General Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (84, 'United Hospital Limited', 'Pediatrician', '5/9/2008-10/12/2016', 'Pediatrics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (85, 'Ibn Sina Hospital', 'Gynecologist', '20/11/2010-25/3/2018', 'Obstetrics and Gynecology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (86, 'Bangladesh Specialized Hospital', 'Orthopedic Surgeon', '15/7/2012-20/11/2020', 'Orthopedics');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (87, 'Green Life Hospital Ltd', 'Ophthalmologist', '8/10/2014-12/2/2022', 'Ophthalmology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (88, 'Labaid Specialized Hospital', 'Dermatologist', '3/2/2016-8/6/2024', 'Dermatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (89, 'Square Hospitals Ltd', 'ENT Specialist', '18/5/2018-22/9/2026', 'Otolaryngology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (90, 'Apollo Hospitals Dhaka', 'Radiologist', '11/8/2020-15/12/2028', 'Radiology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (91, 'Ibn Sina Hospital', 'Cardiothoracic Surgeon', '7/11/2022-10/3/2030', 'Cardiothoracic Surgery');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (92, 'United Hospital Limited', 'Urologist', '20/1/2024-25/5/2032', 'Urology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (93, 'Bangladesh Medical College Hospital', 'Endocrinologist', '15/3/2026-18/7/2034', 'Endocrinology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (94, 'Ibn Sina Hospital', 'Psychiatrist', '9/6/2028-12/10/2036', 'Psychiatry');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (95, 'Apollo Hospitals Dhaka', 'Hematologist', '25/9/2030-30/1/2039', 'Hematology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (96, 'Square Hospitals Ltd', 'Neonatologist', '18/12/2032-22/4/2040', 'Neonatology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (97, 'Labaid Specialized Hospital', 'Pulmonologist', '12/3/2034-15/7/2042', 'Pulmonology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (98, 'Dhaka Medical College Hospital', 'Gastroenterologist', '6/5/2036-9/9/2044', 'Gastroenterology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (99, 'United Hospital Limited', 'Nephrologist', '30/7/2038-4/11/2046', 'Nephrology');
+
+INSERT INTO DoctorsExperience (DoctorID, HospitalName, Position, TimeSpan, Departments)
+VALUES
+    (100, 'Bangladesh Specialized Hospital', 'Rheumatologist', '22/9/2040-26/1/2049', 'Rheumatology');

@@ -345,7 +345,7 @@
         </li>
         <li>
 
-          <a href="#" onclick="viewProfileDetails()" id="username">
+          <a href="/docprofile/<%= doctorId %>">
             <i class="fas fa-user"></i>
             <span class="nav-item">Profile</span>
           </a>
@@ -370,7 +370,7 @@
         <div class="card">
           <i class="fas fa-user"></i>
           <h3>Personal Information</h3>
-          <button>View Details</button>
+          <button onclick="window.location.href = '/docprofile/<%= doctorId %>'">View Details</button>
         </div>
 
         <div class="card">

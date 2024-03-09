@@ -8,30 +8,34 @@ const dbConfig = {
    password: 'bookstore',
    connectString: 'localhost:1521/ORCL'
  };
+
 const dashboardloading = async (req, res) => {
-    console.log("here in dashboard");
+    //console.log("here in dashboard");
+    //console.log(req.session.user.id);
+    const doctorId = req.session.user.id;
     try {
-      const connection = await oracledb.getConnection(dbConfig);
-      const options = {
-        outFormat: oracledb.OUT_FORMAT_OBJECT
-      };
-  
-      // Query upcoming appointments where status is 0 (not booked)
-      const result = await connection.execute(
-        `SELECT * FROM DOCTOR WHERE DOCTORID = 1`,
-        {},
-        options
-      );
-      console.log(result.rows);
-      connection.close(); // Close connection
-  
-      // Render the page and pass the fetched appointments data to it
-      res.render('docdashboard', { patient: result.rows });
+        const connection = await oracledb.getConnection(dbConfig);
+        const options = {
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        // Query upcoming appointments where status is 0 (not booked)
+        const result = await connection.execute(
+            `SELECT * FROM DOCTOR WHERE DOCTORID = :doctorId`,
+            { doctorId }, // Bind variable for :doctorId
+            options
+        );
+        console.log(result.rows);
+        connection.close(); // Close connection
+
+        // Render the page and pass the fetched appointments data to it
+        res.render('docdashboard', { patient: result.rows, doctorId });
     } catch (err) {
-      console.error('ERROR ', err);
-      res.status(500).send('Error fetching DOCTORS');
+        console.error('ERROR ', err);
+        res.status(500).send('Error fetching DOCTORS');
     }
-  };
+};
+
 
 const upcoming_appointmentcontroller =  async (req, res) => {
     try {

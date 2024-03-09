@@ -58,6 +58,7 @@ const deleteRoutes = require('./Database/adminDelete.js');
 const allpatients = require('./Database/adminPtnt.js');
 const alldoctors = require('./Database/adminDoc.js');
 const alldeletedappointments = require('./Database/deletedappointment.js');
+const docprofile = require('./Database/docprofile.js');
 
 io.on('connection', (socket) => {
   //update booked slot
@@ -91,6 +92,7 @@ app.use('/api', deleteRoutes);
 app.use('/allpatients', allpatients.allpatients);
 app.use('/alldoctors', alldoctors.alldoctors);
 app.use('/alldeletedappointments', alldeletedappointments.DeletedAppointments);
+app.use('/docprofile/:doctorId', docprofile.fetchdocProfile);
 
 
 const dbConfig = {

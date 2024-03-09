@@ -17,143 +17,7 @@ BEGIN
         WHERE AppointmentID = :new.AppointmentID;
     END IF;
 END;
---DELETEDAPPOINTMENTS will be stored in the backup table
-CREATE OR REPLACE TRIGGER trg_backup_deleted_appointments
-AFTER DELETE ON Appointment
-FOR EACH ROW
-BEGIN
-    INSERT INTO DeletedAppointments (AppointmentID, Status, ScheduleID, PatientID, SerialNo)
-    VALUES (:old.AppointmentID, :old.Status, :old.ScheduleID, :old.PatientID, :old.SerialNo);
-END;
---when a patient deletes an appointment capacity of corresponding DOCTORSCHEDULE gets incremented by 1
-CREATE OR REPLACE TRIGGER appointment_delete_trigger_increment
-AFTER DELETE ON Appointment
-FOR EACH ROW
-DECLARE
-    v_schedule_id NUMBER;
-BEGIN
-    v_schedule_id := :OLD.ScheduleID;
-    UPDATE DoctorSchedule
-    SET capacity = capacity + 1
-    WHERE ScheduleID = v_schedule_id;
-    COMMIT;
-EXCEPTION
-    WHEN OTHERS THEN
-        NULL;
-END appointment_delete_trigger_increment;
---trigger for appointment in logtable
-CREATE OR REPLACE TRIGGER appointment_insert_trigger
-AFTER INSERT ON appointment
-FOR EACH ROW
-DECLARE
-    v_user_id   Patient.PatientID%TYPE;
-    v_user_name Patient.FirstName%TYPE;
-BEGIN
-    -- Retrieve user information from Patient table based on PATIENTID
-    SELECT PatientID, FirstName INTO v_user_id, v_user_name
-    FROM Patient
-    WHERE PatientID = :NEW.PATIENTID;
 
-    -- Insert log record into LOGTABLE
-    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
-    VALUES ('insert_in_appointment_table', 
-            'SCHEDULEID=' || :NEW.SCHEDULEID || ', PATIENTID=' || :NEW.PATIENTID || ', SERIALNO=' || :NEW.SERIALNO,
-            v_user_id, v_user_name);
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        NULL; -- Do nothing if the patient does not exist
-    WHEN OTHERS THEN
-        -- Log any errors encountered during trigger execution
-        INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
-        VALUES ('insert_in_appointment_table', 
-                'SCHEDULEID=' || :NEW.SCHEDULEID || ', PATIENTID=' || :NEW.PATIENTID || ', SERIALNO=' || :NEW.SERIALNO,
-                NULL, NULL);
-END;
---prescription_insert_trigger in LOGTABLE
-CREATE OR REPLACE TRIGGER prescription_insert_trigger
-AFTER INSERT ON Prescription
-FOR EACH ROW
-DECLARE
-    v_user_id   Doctor.DoctorID%TYPE;
-    v_user_name Doctor.FirstName%TYPE;
-BEGIN
-    -- Retrieve user information from Doctor table based on the associated schedule
-    SELECT d.DoctorID, d.FirstName INTO v_user_id, v_user_name
-    FROM Doctor d
-    JOIN DoctorSchedule ds ON d.DoctorID = ds.DoctorID
-    WHERE ds.ScheduleID IN (SELECT ScheduleID FROM Appointment WHERE AppointmentID = :NEW.AppointmentID);
-
-    -- Insert log record into LOGTABLE
-    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
-    VALUES ('insert_prescription', 
-            'URL=' || :NEW.url || ', AppointmentID=' || :NEW.AppointmentID,
-            v_user_id, v_user_name);
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        NULL; -- Do nothing if the doctor does not exist
-    WHEN OTHERS THEN
-        -- Log any errors encountered during trigger execution
-        INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
-        VALUES ('insert_prescription', 
-                'URL=' || :NEW.url || ', AppointmentID=' || :NEW.AppointmentID,
-                NULL, NULL);
-END;
--- set doctor schedule in LOGTABLE
-CREATE OR REPLACE TRIGGER set_doctor_schedule_trigger
-AFTER INSERT ON doctorschedule
-FOR EACH ROW
-DECLARE
-    v_doctor_id   Doctor.DoctorID%TYPE;
-    v_doctor_name Doctor.FirstName%TYPE;
-BEGIN
-    -- Retrieve doctor information from Doctor table based on the DoctorID
-    SELECT d.DoctorID, d.FirstName
-    INTO v_doctor_id, v_doctor_name
-    FROM Doctor d
-    WHERE d.DoctorID = :NEW.doctorid;
-
-    -- Insert log record into LOGTABLE
-    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
-    VALUES ('insert_doctor_schedule', 
-            'DoctorID=' || v_doctor_id || ', Day=' || :NEW.day || ', Starttime=' || :NEW.starttime || ', Endtime=' || :NEW.endtime || ', Capacity=' || :NEW.capacity,
-            v_doctor_id, v_doctor_name);
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        NULL;
-    WHEN OTHERS THEN
-        NULL; 
-END set_doctor_schedule_trigger;
---update patient profile for logtable
-CREATE OR REPLACE TRIGGER update_patient_trigger
-AFTER UPDATE ON Patient
-FOR EACH ROW
-BEGIN
-    -- Insert log record into LOGTABLE
-    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS,USER_ID,USER_NAME)
-    VALUES ('update_patient', 'PatientID=' || :	NEW.PatientID , :OLD.PatientID, :OLD.FIRSTNAME);
-END update_patient_trigger;
---deleted appointments in LOGTABLE
-CREATE OR REPLACE TRIGGER appointment_delete_trigger
-AFTER DELETE ON Appointment
-FOR EACH ROW
-DECLARE
-    v_username VARCHAR2(100);
-BEGIN
-    SELECT FirstName || ' ' || LastName
-    INTO v_username
-    FROM Patient
-    WHERE PatientID = :OLD.PatientID;
-    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
-    VALUES ('delete_appointment', 'AppointmentID=' || :OLD.AppointmentID, :OLD.PatientID, v_username);
-END appointment_delete_trigger;
---to craete an empty row in healthrecord table for new signup
-CREATE OR REPLACE TRIGGER Insert_HealthRecord
-AFTER INSERT ON Patient
-FOR EACH ROW
-BEGIN
-    INSERT INTO HealthRecords (PatientID) VALUES (:NEW.PatientID);
-END;
---10
 --rating calculated after reveiw
 CREATE OR REPLACE TRIGGER update_doctor_rating
 BEFORE INSERT ON Review
@@ -187,9 +51,153 @@ BEGIN
     ELSE
         avg_rating := :NEW.Rating;
     END IF;
-
     -- Update the doctor's rating
     UPDATE Doctor
     SET Rating = avg_rating
     WHERE DoctorID = id;
 END;
+
+--DELETEDAPPOINTMENTS will be stored in the backup table
+CREATE OR REPLACE TRIGGER trg_backup_deleted_appointments
+AFTER DELETE ON Appointment
+FOR EACH ROW
+BEGIN
+    INSERT INTO DeletedAppointments (AppointmentID, Status, ScheduleID, PatientID, SerialNo)
+    VALUES (:old.AppointmentID, :old.Status, :old.ScheduleID, :old.PatientID, :old.SerialNo);
+END;
+
+--when a patient deletes an appointment capacity of corresponding DOCTORSCHEDULE gets incremented by 1
+CREATE OR REPLACE TRIGGER appointment_delete_trigger_increment
+AFTER DELETE ON Appointment
+FOR EACH ROW
+DECLARE
+    v_schedule_id NUMBER;
+BEGIN
+    v_schedule_id := :OLD.ScheduleID;
+    UPDATE DoctorSchedule
+    SET capacity = capacity + 1
+    WHERE ScheduleID = v_schedule_id;
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN
+        NULL;
+END appointment_delete_trigger_increment;
+
+--trigger for appointment in logtable
+CREATE OR REPLACE TRIGGER appointment_insert_trigger
+AFTER INSERT ON appointment
+FOR EACH ROW
+DECLARE
+    v_user_id   Patient.PatientID%TYPE;
+    v_user_name Patient.FirstName%TYPE;
+BEGIN
+    -- Retrieve user information from Patient table based on PATIENTID
+    SELECT PatientID, FirstName INTO v_user_id, v_user_name
+    FROM Patient
+    WHERE PatientID = :NEW.PATIENTID;
+
+    -- Insert log record into LOGTABLE
+    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
+    VALUES ('insert_in_appointment_table', 
+            'SCHEDULEID=' || :NEW.SCHEDULEID || ', PATIENTID=' || :NEW.PATIENTID || ', SERIALNO=' || :NEW.SERIALNO,
+            v_user_id, v_user_name);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        NULL; -- Do nothing if the patient does not exist
+    WHEN OTHERS THEN
+        -- Log any errors encountered during trigger execution
+        INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
+        VALUES ('insert_in_appointment_table', 
+                'SCHEDULEID=' || :NEW.SCHEDULEID || ', PATIENTID=' || :NEW.PATIENTID || ', SERIALNO=' || :NEW.SERIALNO,
+                NULL, NULL);
+END;
+
+--prescription_insert_trigger in LOGTABLE
+CREATE OR REPLACE TRIGGER prescription_insert_trigger
+AFTER INSERT ON Prescription
+FOR EACH ROW
+DECLARE
+    v_user_id   Doctor.DoctorID%TYPE;
+    v_user_name Doctor.FirstName%TYPE;
+BEGIN
+    -- Retrieve user information from Doctor table based on the associated schedule
+    SELECT d.DoctorID, d.FirstName INTO v_user_id, v_user_name
+    FROM Doctor d
+    JOIN DoctorSchedule ds ON d.DoctorID = ds.DoctorID
+    WHERE ds.ScheduleID IN (SELECT ScheduleID FROM Appointment WHERE AppointmentID = :NEW.AppointmentID);
+
+    -- Insert log record into LOGTABLE
+    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
+    VALUES ('insert_prescription', 
+            'URL=' || :NEW.url || ', AppointmentID=' || :NEW.AppointmentID,
+            v_user_id, v_user_name);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        NULL; -- Do nothing if the doctor does not exist
+    WHEN OTHERS THEN
+        -- Log any errors encountered during trigger execution
+        INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
+        VALUES ('insert_prescription', 
+                'URL=' || :NEW.url || ', AppointmentID=' || :NEW.AppointmentID,
+                NULL, NULL);
+END;
+
+-- set doctor schedule in LOGTABLE
+CREATE OR REPLACE TRIGGER set_doctor_schedule_trigger
+AFTER INSERT ON doctorschedule
+FOR EACH ROW
+DECLARE
+    v_doctor_id   Doctor.DoctorID%TYPE;
+    v_doctor_name Doctor.FirstName%TYPE;
+BEGIN
+    -- Retrieve doctor information from Doctor table based on the DoctorID
+    SELECT d.DoctorID, d.FirstName
+    INTO v_doctor_id, v_doctor_name
+    FROM Doctor d
+    WHERE d.DoctorID = :NEW.doctorid;
+
+    -- Insert log record into LOGTABLE
+    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
+    VALUES ('insert_doctor_schedule', 
+            'DoctorID=' || v_doctor_id || ', Day=' || :NEW.day || ', Starttime=' || :NEW.starttime || ', Endtime=' || :NEW.endtime || ', Capacity=' || :NEW.capacity,
+            v_doctor_id, v_doctor_name);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        NULL;
+    WHEN OTHERS THEN
+        NULL; 
+END set_doctor_schedule_trigger;
+
+--update patient profile for logtable
+CREATE OR REPLACE TRIGGER update_patient_trigger
+AFTER UPDATE ON Patient
+FOR EACH ROW
+BEGIN
+    -- Insert log record into LOGTABLE
+    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS,USER_ID,USER_NAME)
+    VALUES ('update_patient', 'PatientID=' || :	NEW.PatientID , :OLD.PatientID, :OLD.FIRSTNAME);
+END update_patient_trigger;
+
+--deleted appointments in LOGTABLE
+CREATE OR REPLACE TRIGGER appointment_delete_trigger
+AFTER DELETE ON Appointment
+FOR EACH ROW
+DECLARE
+    v_username VARCHAR2(100);
+BEGIN
+    SELECT FirstName || ' ' || LastName
+    INTO v_username
+    FROM Patient
+    WHERE PatientID = :OLD.PatientID;
+    INSERT INTO LOGTABLE (PROCEDURE_NAME, PROCEDURE_PARAMS, USER_ID, USER_NAME)
+    VALUES ('delete_appointment', 'AppointmentID=' || :OLD.AppointmentID, :OLD.PatientID, v_username);
+END appointment_delete_trigger;
+
+--to craete an empty row in healthrecord table for new signup
+CREATE OR REPLACE TRIGGER Insert_HealthRecord
+AFTER INSERT ON Patient
+FOR EACH ROW
+BEGIN
+    INSERT INTO HealthRecords (PatientID) VALUES (:NEW.PatientID);
+END;
+
