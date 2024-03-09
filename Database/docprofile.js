@@ -28,7 +28,7 @@ async function fetchdocProfile(req, res) {
     // Execute the query
     const result = await connection.execute(query, { doctorId }, options);
     const doctor = result.rows[0]; // Assuming only one patient is returned
-console.log(doctor);
+//console.log(doctor);
     // Render the template with patient data
     res.render('docprofile.ejs', { doctor,doctorId});
 
